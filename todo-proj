@@ -1,0 +1,73 @@
+//Home.jsx
+
+import React from 'react'
+import Todo from './Todo'
+//import Completed from './Completed'
+import { useState } from 'react'
+
+export default function Home() {
+    const [todoList, setTodoList] = useState([]);
+    //const [compList, setCompList] = useState([]);
+    const [task, setTask] = useState(''); 
+
+    function handleOnChange(e) {
+        setTask(e.target.value);
+    }
+    function handleOnClick() {
+        if (task) { 
+            setTodoList(todoList.concat(task)); 
+            setTask(''); 
+        }
+    }
+    return (
+        <>
+            <h1>My To-do List</h1>
+            <input  type = 'text'
+                    value={task}
+                    onChange={handleOnChange} 
+                    >
+                    </input>
+            <button onClick={handleOnClick}>Add Task</button>
+
+            <Todo todoList={todoList}/>
+            {/* <Completed /> */}
+        </>
+    )
+}
+
+
+//Todo.jsx
+
+import React from 'react';
+
+function Todo({ todoList }) {
+    return (
+        <div>
+            <h2>To-do List</h2>
+            <ul>
+                {todoList.map((task) => (
+                    <li>{task}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+export default Todo;
+
+
+//App.js
+
+import './App.css';
+import Home from './Components/Home';
+
+function App() {
+  return (
+    <>
+      <Home />
+    </>
+  );
+}
+
+export default App;
+
+
